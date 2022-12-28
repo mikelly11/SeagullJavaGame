@@ -1,4 +1,4 @@
 public enum ID {
     Player();
-    Enemy();
+    //Enemy();
 }
