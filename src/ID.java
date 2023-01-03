@@ -1,4 +1,4 @@
 public enum ID {
-    Player(), BasicEnemy;
+    Player(), BasicEnemy, Trail, FastEnemy;
     //Enemy();
 }
