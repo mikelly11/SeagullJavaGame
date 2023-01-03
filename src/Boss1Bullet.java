@@ -1,9 +1,12 @@
 import java.awt.*;
-public class BasicEnemy extends GameObject{
+import java.util.Random;
+
+public class Boss1Bullet extends GameObject{
     private Handler handler;
-    public BasicEnemy(float x, float y, ID id, Handler handler) {
+    Random r = new Random();
+    public Boss1Bullet(float x, float y, ID id, Handler handler) {
         super(x, y, id);
-        velX = 5;
+        velX = (r.nextInt(5 - -5) + -5);
         velY = 5;
         this.handler = handler;
     }
@@ -14,8 +17,10 @@ public class BasicEnemy extends GameObject{
         x += velX;
         y += velY;
 
-        if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1;
-        if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
+//        if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1;
+//        if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
+        // remove if goes out of bounds
+        if(y >= Game.HEIGHT) handler.removeObject(this);
 
         handler.addObject(new Trail((int) x, (int) y , ID.Trail, Color.red, 16, 16,0.05f, handler));
     }

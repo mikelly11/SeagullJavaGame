@@ -13,6 +13,13 @@ public class Game extends Canvas implements Runnable{
     private HUD hud;
     private Spawn spawner;
 
+    public enum STATE{
+        Menu,
+        Game
+    }
+
+    public STATE gameState = STATE.Menu;
+
     public Game(){
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
@@ -21,15 +28,13 @@ public class Game extends Canvas implements Runnable{
         hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
-
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));
+        if(gameState == STATE.Game) {
+            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
 //        for(int i = 0; i < 20; i++)
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+            handler.addObject(new BasicEnemy(r.nextInt(WIDTH) - 48, r.nextInt(HEIGHT) - 48, ID.BasicEnemy, handler));
 
-        //        for(int i = 0; i<50; i++){
-//            //handler.addObject(new Player(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Player));
-//            handler.addObject(new Player(0, 0, ID.Player));
-//        }
+        }
+
 
     }
     public synchronized void start(){
@@ -75,8 +80,10 @@ public class Game extends Canvas implements Runnable{
     }
     private void tick(){
         handler.tick();
-        hud.tick();
-        spawner.tick();
+        if(gameState == STATE.Game) {
+            hud.tick();
+            spawner.tick();
+        }
     }
     private void render(){
         BufferStrategy bs = this.getBufferStrategy();
@@ -91,13 +98,16 @@ public class Game extends Canvas implements Runnable{
         g.fillRect(0,0, WIDTH, HEIGHT);
 
         handler.render(g);
-
-        hud.render(g);
-
+        if(gameState == STATE.Game) {
+            hud.render(g);
+        }else{
+            g.setColor(Color.white);
+            g.drawString("Menu", 100, 100);
+        }
         g.dispose();
         bs.show();
     }
-    public static int clamp(int var, int min, int max){
+    public static float clamp(float var, float min, float max){
         if(var >= max)
             return var = max;
         else if(var <= min)
