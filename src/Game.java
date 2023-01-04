@@ -15,6 +15,7 @@ public class Game extends Canvas implements Runnable{
     private Menu menu;
     public enum STATE{
         Men,
+        Help,
         Game
     }
 
@@ -22,19 +23,22 @@ public class Game extends Canvas implements Runnable{
 
     public Game(){
         handler = new Handler();
+
+        menu = new Menu(this, handler);
+
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
+
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
-        menu = new Menu();
+
         hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
         if(gameState == STATE.Game) {
             handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-//        for(int i = 0; i < 20; i++)
             handler.addObject(new BasicEnemy(r.nextInt(WIDTH) - 48, r.nextInt(HEIGHT) - 48, ID.BasicEnemy, handler));
 
         }
-
 
     }
     public synchronized void start(){
@@ -83,7 +87,7 @@ public class Game extends Canvas implements Runnable{
         if(gameState == STATE.Game) {
             hud.tick();
             spawner.tick();
-        }else if(gameState == STATE.Men){
+        }else if(gameState == STATE.Men || gameState == STATE.Help){
             menu.tick();
         }
     }
@@ -102,7 +106,7 @@ public class Game extends Canvas implements Runnable{
         handler.render(g);
         if(gameState == STATE.Game) {
             hud.render(g);
-        }else if(gameState == STATE.Men){
+        }else if(gameState == STATE.Men || gameState == STATE.Help){
             menu.render(g);
         }
         g.dispose();
