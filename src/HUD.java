@@ -29,7 +29,7 @@ public class HUD {
     public void score(int score){
         this.score = score;
     }
-    public int getScore(int score){
+    public int getScore(){
         return score;
     }
     public int getLevel(){

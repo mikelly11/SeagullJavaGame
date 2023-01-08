@@ -1,15 +1,18 @@
 import com.sun.corba.se.impl.orbutil.graph.Graph;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Player extends GameObject{
     Random r = new Random();
     Handler handler;
+    private BufferedImage player_image;
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
-
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        player_image = ss.getSprite(1, 1, 32, 32);
 //        velX = r.nextInt(5) + 1;
 //        velY = r.nextInt(5);
         //setX(100);
@@ -47,8 +50,9 @@ public class Player extends GameObject{
 //        Graphics2D g2d = (Graphics2D) g;
 //        g.setColor(Color.CYAN);
 //        g2d.draw(getBounds());
-        g.setColor(Color.white);
-        g.fillRect((int) x, (int) y,32,32);
+//        g.setColor(Color.white);
+//        g.fillRect((int) x, (int) y,32,32);
+        g.drawImage(player_image, (int)x, (int)y, null);
     }
 
 

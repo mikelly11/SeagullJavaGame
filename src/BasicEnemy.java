@@ -1,11 +1,17 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class BasicEnemy extends GameObject{
     private Handler handler;
+    private BufferedImage enemy_image;
     public BasicEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         velX = 5;
         velY = 5;
         this.handler = handler;
+
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        enemy_image = ss.getSprite(2, 1, 16, 16);
     }
     public Rectangle getBounds(){
         return new Rectangle((int) x,(int) y,16,16);
@@ -21,7 +27,8 @@ public class BasicEnemy extends GameObject{
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.red);
-        g.fillRect((int) x,(int) y,16,16);
+//        g.setColor(Color.red);
+//        g.fillRect((int) x,(int) y,16,16);
+        g.drawImage(enemy_image, (int)x, (int)y, null);
     }
 }

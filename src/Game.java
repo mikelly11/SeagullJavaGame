@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
@@ -16,22 +18,27 @@ public class Game extends Canvas implements Runnable{
     public enum STATE{
         Men,
         Help,
-        Game
+        Game,
+        End
     }
-
-    public STATE gameState = STATE.Men;
+    public static BufferedImage sprite_sheet;
+    public static STATE gameState = STATE.Men;
 
     public Game(){
-        handler = new Handler();
+        com.tutorial.main.BufferedImageLoader loader = new com.tutorial.main.BufferedImageLoader();
+        sprite_sheet = loader.loadImage("res/example_spritesheet.png");
+//        System.out.println("loaded");
 
-        menu = new Menu(this, handler);
+        handler = new Handler();
+        hud = new HUD();
+
+        menu = new Menu(this, handler, hud);
 
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
 
-        hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
         if(gameState == STATE.Game) {
@@ -87,7 +94,12 @@ public class Game extends Canvas implements Runnable{
         if(gameState == STATE.Game) {
             hud.tick();
             spawner.tick();
-        }else if(gameState == STATE.Men || gameState == STATE.Help){
+            if(HUD.HEALTH <= 0){
+                HUD.HEALTH = 100;
+                handler.object.clear();
+                gameState = STATE.End;
+            }
+        }else if(gameState == STATE.Men || gameState == STATE.Help || gameState == STATE.End){
             menu.tick();
         }
     }
@@ -106,7 +118,7 @@ public class Game extends Canvas implements Runnable{
         handler.render(g);
         if(gameState == STATE.Game) {
             hud.render(g);
-        }else if(gameState == STATE.Men || gameState == STATE.Help){
+        }else if(gameState == STATE.Men || gameState == STATE.Help || gameState == STATE.End){
             menu.render(g);
         }
         g.dispose();
