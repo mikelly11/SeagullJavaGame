@@ -1,16 +1,21 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Boss1 extends GameObject{
     private Handler handler;
     Random r = new Random();
-    private int timer = 50;
+    private int timer = 60;
     private int timer2 = 50;
+    private BufferedImage enemy_image;
     public Boss1(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         velX = 0;
         velY = 2;
         this.handler = handler;
+
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        enemy_image = ss.getSprite(3, 1, 64, 64);
     }
     public Rectangle getBounds(){
         return new Rectangle((int) x,(int) y,16,16);
@@ -34,11 +39,12 @@ public class Boss1 extends GameObject{
 //        if(y <= 0 || y >= Game.HEIGHT - 32) velY *= -1;
         if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 
-        handler.addObject(new Trail((int) x, (int) y , ID.Trail, Color.red, 64, 64,0.5f, handler));
+//        handler.addObject(new Trail((int) x, (int) y , ID.Trail, Color.red, 64, 64,0.5f, handler));
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.red);
-        g.fillRect((int) x,(int) y,64,64);
+//        g.setColor(Color.red);
+//        g.fillRect((int) x,(int) y,64,64);
+        g.drawImage(enemy_image, (int)x, (int)y, null);
     }
 }

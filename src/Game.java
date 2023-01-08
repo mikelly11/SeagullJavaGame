@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable{
 
     public Game(){
         com.tutorial.main.BufferedImageLoader loader = new com.tutorial.main.BufferedImageLoader();
-        sprite_sheet = loader.loadImage("res/example_spritesheet.png");
+        sprite_sheet = loader.loadImage("/example_spritesheet.png");
 //        System.out.println("loaded");
 
         handler = new Handler();

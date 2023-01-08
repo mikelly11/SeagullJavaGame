@@ -25,7 +25,7 @@ public class Player extends GameObject{
         y += velY;
         x = Game.clamp(x, 0, Game.WIDTH-50);
         y = Game.clamp(y, 0, Game.HEIGHT-80);
-        handler.addObject(new Trail(x, y , ID.Trail, Color.white, 32, 32,0.05f, handler));
+//        handler.addObject(new Trail(x, y , ID.Trail, Color.white, 32, 32,0.05f, handler));
 
         collision();
     }
