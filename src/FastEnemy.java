@@ -6,8 +6,8 @@ public class FastEnemy extends GameObject{
     private BufferedImage enemy_image;
     public FastEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
-        velX = 8;
-        velY = 8;
+        velX = 4;
+        velY = 4;
         this.handler = handler;
 
         SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);

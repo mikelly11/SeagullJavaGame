@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Menu extends MouseAdapter {
@@ -10,10 +11,16 @@ public class Menu extends MouseAdapter {
     private Handler handler;
     private HUD hud;
     private Random r = new Random();
+    private BufferedImage menu_image1;
+    private BufferedImage menu_image2;
     public Menu(Game game, Handler handler, HUD hud){
         this.game = game;
         this.hud = hud;
         this.handler = handler;
+
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        menu_image1 = ss.getSprite(3, 1, 64, 64);
+        menu_image2 = ss.getSprite(3, 3, 64, 64);
     }
     public void mousePressed(MouseEvent e){
         int mx = e.getX();
@@ -46,6 +53,8 @@ public class Menu extends MouseAdapter {
         if(game.gameState == Game.STATE.End){
             if(mouseOver(mx, my, 210, 350, 200, 64)) {
                 game.gameState = Game.STATE.Men;
+                hud.score = 0;
+                hud.level = 1;
                 return;
             }
         }
@@ -70,18 +79,21 @@ public class Menu extends MouseAdapter {
 
             g.setFont(fnt);
             g.setColor(Color.white);
-            g.drawString("Menu", 240, 70);
+            g.drawString("Seagull Attack", 140, 100);
+            g.drawImage(menu_image1, 70, 50, null);
+            g.drawImage(menu_image2, 490, 50, null);
 
             g.setFont(fnt2);
-            g.drawRect(210, 150, 200, 64);
+            g.setColor(Color.white);
+            g.drawRoundRect(210, 150, 200, 64, 5, 5);
             g.drawString("Play", 280, 190);
 
             g.setColor(Color.white);
-            g.drawRect(210, 250, 200, 64);
+            g.drawRoundRect(210, 250, 200, 64, 5, 5);
             g.drawString("Help", 280, 290);
 
             g.setColor(Color.white);
-            g.drawRect(210, 350, 200, 64);
+            g.drawRoundRect(210, 350, 200, 64, 5, 5);
             g.drawString("Quit", 280, 390);
         }else if(game.gameState == Game.STATE.Help) {
             Font fnt3 = new Font("arial", 1, 15);
@@ -90,21 +102,20 @@ public class Menu extends MouseAdapter {
 
             g.setFont(fnt);
             g.setColor(Color.white);
-            g.drawString("Help", 240, 70);
+            g.drawString("Help", 240, 100);
+            g.drawImage(menu_image1, 170, 50, null);
+            g.drawImage(menu_image2, 360, 50, null);
 
             g.setFont(fnt3);
-            g.drawString("Use the 'WASD' keys to move around in this fast phased game.", 100, 90);
-            g.drawString("W = Up, A = Left, S = Down, D = Right.", 100, 110);
-            g.drawString("In this game your goal is to dodge enemies and get as many", 100, 130);
-            g.drawString("points as possible. Every 10 levels there is a boss enemy.", 100, 150);
-            g.setFont(fnt2);
-            g.setColor(Color.blue);
-            g.drawString("ENJOY!", 250, 190);
+            g.drawString("Use the 'WASD' keys to move around and avoid the seagulls.", 100, 130);
+            g.drawString("W = Up, A = Left, S = Down, D = Right.", 100, 150);
+            g.drawString("In this game your goal is to dodge seagulls who want to eat you.", 100, 170);
+            g.drawString("Try to get as many points as possible. Every 10 levels there is a boss enemy.", 100, 190);
 
             g.setColor(Color.white);
             g.setFont(fnt2);
             g.drawString("Back", 270, 390);
-            g.drawRect(210, 350, 200, 64);
+            g.drawRoundRect(210, 350, 200, 64, 5, 5);
         }else if(game.gameState == Game.STATE.End) {
             Font fnt3 = new Font("arial", 1, 15);
             Font fnt2 = new Font("arial", 1, 30);
@@ -120,7 +131,7 @@ public class Menu extends MouseAdapter {
             g.setColor(Color.white);
             g.setFont(fnt2);
             g.drawString("Play Again", 230, 390);
-            g.drawRect(210, 350, 200, 64);
+            g.drawRoundRect(210, 350, 200, 64, 5, 5);
         }
     }
 }

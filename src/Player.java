@@ -12,20 +12,20 @@ public class Player extends GameObject{
         super(x, y, id);
         this.handler = handler;
         SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
-        player_image = ss.getSprite(1, 1, 32, 32);
+        player_image = ss.getSprite(3, 3, 64, 64);
 //        velX = r.nextInt(5) + 1;
 //        velY = r.nextInt(5);
         //setX(100);
     }
     public Rectangle getBounds(){
-        return new Rectangle((int) x,(int) y,32,32);
+        return new Rectangle((int) x,(int) y,64,64);
     }
     public void tick() {
         x += velX;
         y += velY;
         x = Game.clamp(x, 0, Game.WIDTH-50);
         y = Game.clamp(y, 0, Game.HEIGHT-80);
-//        handler.addObject(new Trail(x, y , ID.Trail, Color.white, 32, 32,0.05f, handler));
+//        handler.addObject(new Trail(x, y , ID.Trail, Color.white, 64, 64,0.05f, handler));
 
         collision();
     }
@@ -37,11 +37,16 @@ public class Player extends GameObject{
                     // collision code
                     HUD.HEALTH -= 2;
                 }
-            else if (tempObject.getId() == ID.Boss1)
-                    if (getBounds().intersects(tempObject.getBounds())) {
-                        // collision code
-                        HUD.HEALTH -= 100;
-                    }
+            }else if (tempObject.getId() == ID.BigEnemy){
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    // collision code
+                    HUD.HEALTH -= 4;
+                }
+            }else if (tempObject.getId() == ID.Boss1) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    // collision code
+                    HUD.HEALTH -= 10;
+                }
             }
         }
     }
@@ -51,7 +56,7 @@ public class Player extends GameObject{
 //        g.setColor(Color.CYAN);
 //        g2d.draw(getBounds());
 //        g.setColor(Color.white);
-//        g.fillRect((int) x, (int) y,32,32);
+//        g.fillRect((int) x, (int) y,64,64);
         g.drawImage(player_image, (int)x, (int)y, null);
     }
 

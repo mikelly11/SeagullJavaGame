@@ -6,8 +6,8 @@ public class BasicEnemy extends GameObject{
     private BufferedImage enemy_image;
     public BasicEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
-        velX = 5;
-        velY = 5;
+        velX = 2;
+        velY = 2;
         this.handler = handler;
 
         SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);

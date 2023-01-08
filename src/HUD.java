@@ -4,8 +4,8 @@ public class HUD {
     public static int HEALTH = 100;
     private int greenValue = 255;
 
-    private int score = 0;
-    private int level = 1;
+    public int score = 0;
+    public int level = 1;
 
     public void tick(){
         // HEALTH --;
