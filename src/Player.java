@@ -47,6 +47,11 @@ public class Player extends GameObject{
                     // collision code
                     HUD.HEALTH -= 10;
                 }
+            }else if (tempObject.getId() == ID.Cherry) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    // collision code
+                    HUD.HEALTH += 1;
+                }
             }
         }
     }

@@ -25,8 +25,8 @@ public class Spawn {
 //                handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.SmartEnemy, handler));
             }else if(hud.getLevel() == 6){
                 handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.SmartEnemy, handler));
-//            }else if(hud.getLevel() == 7){
-//                handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.SmartEnemy, handler));
+            }else if(hud.getLevel() == 7){
+                handler.addObject(new Cherry(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.Cherry, handler));
             }else if(hud.getLevel() == 8){
                 handler.addObject(new BigEnemy(r.nextInt(Game.WIDTH-50), r.nextInt(Game.HEIGHT-50), ID.BigEnemy, handler));
             }else if(hud.getLevel() == 10){
